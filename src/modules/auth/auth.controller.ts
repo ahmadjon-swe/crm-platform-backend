@@ -17,6 +17,11 @@ export class AuthController {
     return this.authService.findAll();
   }
 
+  @Get()
+  findAllDeleted() {
+    return this.authService.findAllDeleted();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.authService.findOne(+id);
@@ -30,5 +35,10 @@ export class AuthController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.authService.remove(+id);
+  }
+
+  @Patch(':id')
+  unremove(@Param('id') id: string) {
+    return this.authService.unremove(+id);
   }
 }
