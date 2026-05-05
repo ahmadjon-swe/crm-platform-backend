@@ -3,15 +3,15 @@ import { IsEmail, IsString } from "class-validator";
 
 export class UpdateAuthDto {
   @IsString()
-  @ApiProperty({default: "yordamchi_admin"})
+  @ApiProperty({default: "_alisher_1100"})
   username?: string
   
   @IsString()
-  @ApiProperty({default: "yordamchi_admin"})
+  @ApiProperty({default: "Alisher Fayz"})
   name?: string
 
   @IsEmail()
-  @ApiProperty({default: "example@gmail.com"})
+  @ApiProperty({default: "muhammadalishuhratjonov50@gmail.com"})
   email?: string
 
   @IsString()
