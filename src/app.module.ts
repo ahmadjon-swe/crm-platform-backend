@@ -21,7 +21,9 @@ import { Teacher } from './modules/teacher/entities/teacher.entity';
       entities: [Auth, Group, Student, Teacher],
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: true
+      synchronize: false,
+      migrations: [],
+      logging: true
     }),
     AuthModule, 
     TeacherModule, 
