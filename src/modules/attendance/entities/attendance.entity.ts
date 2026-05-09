@@ -1,34 +1,29 @@
-import { BaseEntity } from "src/database/entities/base-entity";
-import { Auth } from "src/modules/auth/entities/auth.entity";
-import { Group } from "src/modules/group/entities/group.entity";
-import { Student } from "src/modules/student/entities/student.entity";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { BaseEntity } from 'src/database/entities/base-entity';
+import { Column, Entity, JoinColumn, ManyToOne, Unique } from 'typeorm';
+import { Student } from 'src/modules/student/entities/student.entity';
+import { Group } from 'src/modules/group/entities/group.entity';
+import { Auth } from 'src/modules/auth/entities/auth.entity';
+import { AttendanceStatus } from 'src/shared/enums/attendance-status.enum';
 
 
-export enum AttendanceStatus {
-  PRESENT = "present",
-  ABSENT = "absent",
-  LATE = "late",
-}
-
-@Entity()
+@Entity('attendance')
+@Unique(['student', 'group', 'date'])
 export class Attendance extends BaseEntity {
-  @Column({ type: "date" })
+  @Column({ type: 'date' })
   date!: string;
 
-  @Column({ type: "enum", enum: AttendanceStatus, default: AttendanceStatus.PRESENT })
+  @Column({ type: 'enum', enum: AttendanceStatus, default: AttendanceStatus.PRESENT })
   status!: AttendanceStatus;
 
-  @ManyToOne(() => Student, (student) => student.attendances, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "student_id" })
+  @ManyToOne(() => Student, (student) => student.attendances, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'student_id' })
   student: Student;
 
-  @ManyToOne(() => Group, (group) => group.attendances, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "group_id" })
+  @ManyToOne(() => Group, (group) => group.attendances, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'group_id' })
   group: Group;
 
-  // Admin who marked attendance
-  @ManyToOne(() => Auth, { nullable: true, onDelete: "SET NULL" })
-  @JoinColumn({ name: "admin_id" })
+  @ManyToOne(() => Auth, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'admin_id' })
   admin: Auth;
 }

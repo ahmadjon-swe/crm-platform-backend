@@ -1,20 +1,31 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsString } from "class-validator";
+import { ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEmail, IsEnum, IsOptional, IsString, MinLength } from 'class-validator';
+import { RolesAdmin } from 'src/shared/enums/roles.enum';
 
 export class UpdateAuthDto {
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
-  @ApiProperty({default: "_alisher_1100"})
-  username?: string
-  
-  @IsString()
-  @ApiProperty({default: "Alisher Fayz"})
-  name?: string
+  name?: string;
 
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  username?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsEmail()
-  @ApiProperty({default: "muhammadalishuhratjonov50@gmail.com"})
-  email?: string
+  email?: string;
 
+  @ApiPropertyOptional()
+  @IsOptional()
   @IsString()
-  @ApiProperty({default: "parol123"})
-  password?: string
+  @MinLength(6)
+  password?: string;
+
+  @ApiPropertyOptional({ enum: RolesAdmin })
+  @IsOptional()
+  @IsEnum(RolesAdmin)
+  role?: RolesAdmin;
 }
